@@ -20,10 +20,10 @@ for(i=1;i<=l1;i++){
         arr[i][j]=0;
             if(a[i]==b[j]){
                 
-                arr[i][j]= (1+max(arr[i-1][j-1],arr[i-1][j]));
+                arr[i][j]= (1+arr[i-1][j-1]);
             }
             else{
-                arr[i][j]=arr[i-1][j-1];
+                arr[i][j]=(max(arr[i][j-1],arr[i-1][j]));
             }
         }
     }
