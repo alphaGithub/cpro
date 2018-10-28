@@ -60,6 +60,28 @@ void update_data(char *fname,int n){
     fwrite(&udata,sizeof(struct account),1,fp);
     fclose(fp);
 }
+void delete_data(char *fname,int n){
+    FILE *fp,*tmp;
+    int c=0;
+    struct account udata;
+    fp=fopen(fname,"rb");
+    tmp=fopen("tmpfile","wb");
+    if(fp==NULL){
+        printf("Error in opening file\n");
+        return;
+    }
+    while(fread(&udata,sizeof(struct account),1,fp)==1){
+        c++;
+        if(c!=n){
+            fwrite(&udata,sizeof(struct account),1,tmp);
+        }
+    }
+    fclose(fp);
+    fclose(tmp);
+    remove(fname);
+    rename("tmpfile",fname);
+}   
+
 int main(int argc, char const *argv[])
 {
     char *fname="input";
@@ -79,6 +101,11 @@ int main(int argc, char const *argv[])
                 printf("Enter Position to be modified :");
                 scanf("%d",&pos);
                 update_data(fname,pos);
+                break;
+            case 4:
+                printf("Enter Position to be deleted :\n");
+                scanf("%d",&pos);
+                delete_data(fname,pos);
                 break;
             case 5:
                 exit(0);
