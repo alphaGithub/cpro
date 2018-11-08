@@ -49,5 +49,13 @@ class mux{
     public:
     char select(char *,char *);
 };
-}
+class dmux{
+    public:
+    char * dselect(char ,char *);
+};
 
+class decoder{
+    public:
+    char * decode(char *);
+};
+}

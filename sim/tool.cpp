@@ -2,7 +2,8 @@
 #include<stdlib.h>
 #include<math.h>
 #include"basic.h"
-
+#include<iostream>
+using namespace std;
 using namespace gate ;
 
 //full adder 
@@ -38,4 +39,29 @@ char mux::select(char input[],char select[]){
         b=b*2;
     }
     return input[n-1-pos];
+}
+
+//dmultiplexer
+char * dmux::dselect(char i,char select[]){
+    int len=strlen(select);
+    int out_len=1;
+    int pos=0;
+    int b=1;
+    for(int i=0;i<len;i++){
+        out_len=out_len*2;
+        pos=pos+ (select[len-1-i]=='1'?1:0)*b;
+        b=b*2;
+    }
+    char * out=(char *)malloc(sizeof(char)*out_len);
+    for(int i=0;i<out_len;i++){
+        out[i]='0';
+    }
+    out[out_len-1-pos]=i;
+    return out;
+}
+
+//decoder
+char * decoder::decode(char select[]){
+    dmux dm;
+    return dm.dselect('1',select);
 }
